@@ -1,0 +1,66 @@
+{
+    "ask_description": "Utiliza uno de los siguientes modelos de texto GPT",
+    "ask_prompt_description": "Introduzca el texto de su consulta",
+    "ask_model_description": "Elige uno de los modelos propuestos que quieras utilizar",
+
+    "ask_set_engine_description": "Ange standardmodell (standard: gpt-4)",
+
+    "gpt_history_errbed_description": "No se han encontrado solicitudes",
+    "gpt_history_embed_author_name": "Últimas 15 peticiones de {user}",
+
+    "user_description": "Información sobre ti o sobre un usuario seleccionado",
+    "user_user_description": "Menciona a un usuario para ver información sobre él",
+
+    "bot_description": "Ver toda la información sobre el bot",
+
+    "help_description": "Lista de todos los comandos disponibles del bot",
+
+    "ping_description": "El ping del bot",
+
+    "gpt_history_description": "Obtén tu historial de peticiones",
+    "gpt_history_user_description": "Mencionar a un usuario para ver su historial de solicitudes",
+
+
+    "ask_set_engine_model_description": "Selecciona uno de los modelos que quieres usar por defecto",
+    "ask_set_engine_embed_author_name": "Ha cambiado correctamente su modelo estándar a `{model}`",
+
+    "user_errbed_description": "El usuario seleccionado no puede ser un bot",
+    "user_embed_description": "Aquí puedes ver las estadísticas generales de tu uso o del uso del usuario especificado",
+
+    "user_embed_field_0_name": "{arrow}\tStatistics",
+    "user_embed_field_0_value_0": "Número de veces que se utilizaron los comandos del bot: **{time_of_use_commands} times**",
+    "user_embed_field_0_value_1": "El número de peticiones (requests): **{number_of_requests} times.**",
+    "user_embed_field_0_value_2": "El número de caracteres generados: **{generated_characters} caracteres**",
+
+    "user_embed_field_1_name": "{arrow}\tOtra información",
+    "user_embed_field_1_value_0": "Fecha de creación del perfil: **{created_at}**",
+
+    "user_embed_author_name": "Toda la información sobre el usuario {user}",
+
+    "bot_embed_description": "A continuación puedes ver toda la información sobre el bot `{bot_user}`",
+
+    "bot_embed_field_0_name": "Información general",
+    "bot_embed_field_0_value_0": "Número de servidores: **{guilds_count}**",
+    "bot_embed_field_0_value_1": "El número de miembros: **{members_count}**",
+    "bot_embed_field_0_value_2": "El número de comandos: **{commands_count}**",
+
+    "bot_embed_field_1_name": "Estadísticas",
+    "bot_embed_field_1_value_0": "Número de veces que se utilizaron los comandos bot: **{time_of_use_commands} times**",
+    "bot_embed_field_1_value_1": "El número de peticiones (requests): **{number_of_requests} times.**",
+    "bot_embed_field_1_value_2": "El número de caracteres generados: **{generated_characters} caracteres**",
+
+    "bot_embed_field_2_name": "Datos de contacto y enlaces",
+    "bot_embed_field_2_value_0": "El propietario del bot: [{application_info_owner}](https://discord.com/users/{application_info_owner_id})",
+    "bot_embed_field_2_value_1": "El servidor de soporte bot: [Haga clic para saltar](https://discord.gg/WDTtfSqSnN)",
+
+    "help_embed_field_0_name": "{arrow}\tInformación",
+    "help_embed_field_1_name": "{arrow}\tNeural networks",
+
+    "ping_content": "El retraso del bot es de **{bot_latency}ms**",
+
+    "set_language_description": "Establece el idioma del bot",
+    "set_language_language_description": "Selecciona el idioma que quieres establecer para ti en la interfaz del bot",
+    "set_language_embed_author_name": "Has instalado correctamente el nuevo idioma de la interfaz del bot (`{language}`)",
+
+    "history_paginator_check_error": "No puede utilizar este paginador porque no es su propietario"
+}

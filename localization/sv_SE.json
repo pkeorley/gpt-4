@@ -1,0 +1,66 @@
+{
+    "ask_description": "Använd en av följande GPT-textmodeller",
+    "ask_prompt_description": "Ange texten för din fråga",
+    "ask_model_description": "Välj en av de föreslagna modellerna du vill använda",
+
+    "ask_set_engine_description": "Ange standardmodell (standard: gpt-4)",
+
+    "gpt_history_errbed_description": "Inga förfrågningar hittades",
+    "gpt_history_embed_author_name": "De senaste 15 förfrågningarna av {user}",
+
+    "user_description": "Information om dig eller en utvald användare",
+    "user_user_description": "Nämn en användare för att se information om dem",
+
+    "bot_description": "Se all information om botten",
+
+    "help_description": "Lista över alla tillgängliga botkommandon",
+
+    "ping_description": "Botens ping",
+
+    "gpt_history_description": "Hämta din förfrågningshistorik",
+    "gpt_history_user_description": "Omnämna en användare för att se deras förfrågningshistorik",
+
+
+    "ask_set_engine_model_description": "Välj en av de modeller du vill använda som standard",
+    "ask_set_engine_embed_author_name": "Du har framgångsrikt ändrat din standardmodell till `{model}`",
+
+    "user_errbed_description": "Den valda användaren kan inte vara en bot",
+    "user_embed_description": "Här kan du se den allmänna statistiken för din användning eller användningen av den angivna användaren",
+
+    "user_embed_field_0_name": "{arrow}\tStatistics",
+    "user_embed_field_0_value_0": "Antal gånger botkommandon användes: **{time_of_use_commands} times**",
+    "user_embed_field_0_value_1": "Antalet förfrågningar (requests): **{number_of_requests} times.**",
+    "user_embed_field_0_value_2": "Antalet genererade tecken: **{generated_characters} tecken**",
+
+    "user_embed_field_1_name": "{arrow}\tÖvrig information",
+    "user_embed_field_1_value_0": "Datum då profilen skapades: **{created_at}**",
+
+    "user_embed_author_name": "All information om användaren {user}",
+
+    "bot_embed_description": "Nedan kan du se all information om botten `{bot_user}`",
+
+    "bot_embed_field_0_name": "Allmän information",
+    "bot_embed_field_0_value_0": "Antalet servrar: **{guilds_count}**",
+    "bot_embed_field_0_value_1": "Antalet medlemmar: **{members_count}**",
+    "bot_embed_field_0_value_2": "Antalet kommandon: **{commands_count}**",
+
+    "bot_embed_field_1_name": "Statistik",
+    "bot_embed_field_1_value_0": "Antal gånger botkommandon användes: **{time_of_use_commands} times**",
+    "bot_embed_field_1_value_1": "Antalet förfrågningar: **{number_of_requests} gånger.**",
+    "bot_embed_field_1_value_2": "Antalet genererade tecken: **{generated_characters} tecken**",
+
+    "bot_embed_field_2_name": "Kontaktuppgifter och länkar",
+    "bot_embed_field_2_value_0": "Botens ägare: [{application_info_owner}](https://discord.com/users/{application_info_owner_id})",
+    "bot_embed_field_2_value_1": "Botstödets server: [Klicka för att hoppa](https://discord.gg/WDTtfSqSnN)",
+
+    "help_embed_field_0_name": "{arrow}\tInformation",
+    "help_embed_field_1_name": "{arrow}\tNeurala nätverk",
+
+    "ping_content": "Botens latens är **{bot_latency}ms**",
+
+    "set_language_description": "Ställ in botens språk",
+    "set_language_language_description": "Välj det språk du vill ställa in för dig själv i botgränssnittet",
+    "set_language_embed_author_name": "Du har framgångsrikt installerat det nya språket för botgränssnittet (`{language}`)",
+
+    "history_paginator_check_error": "Du kan inte använda denna paginator eftersom du inte är dess ägare"
+}

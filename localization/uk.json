@@ -1,0 +1,65 @@
+{
+    "ask_description": "Використовуйте одну з наступних текстових моделей GPT",
+    "ask_prompt_description": "Введіть текст вашого запиту",
+    "ask_model_description": "Виберіть одну із запропонованих моделей, яку ви хочете використовувати",
+
+    "ask_set_engine_description": "Встановити модель за замовчуванням (за замовчуванням: gpt-4)",
+
+    "gpt_history_errbed_description": "Не знайдено жодного запросу",
+    "gpt_history_embed_author_name": "Останні 15 запросів користувача {user}",
+
+    "user_description": "Інформація про вас або обраного користувача",
+    "user_user_description": "Згадайте користувача, щоб переглянути інформацію про нього",
+
+    "bot_description": "Подивитися всю інформацію про бота",
+
+    "help_description": "Список усіх доступних команд бота",
+
+    "ping_description": "Пінг бота",
+
+    "gpt_history_description": "Отримати історію ваших запитів",
+    "gpt_history_user_description": "Згадайте користувача, щоб переглянути історію його запитів",
+
+    "ask_set_engine_model_description": "Виберіть одну з моделей, яку ви хочете використовувати за замовчуванням",
+    "ask_set_engine_embed_author_name": "Ви успішно змінили вашу стандартну модель на `{model}`",
+
+    "user_errbed_description": "Обраний користувач не може бути ботом",
+    "user_embed_description": "Тут ви можете переглянути загальну статистику вашого використання або використання вказаного користувача",
+
+    "user_embed_field_0_name": "{arrow}\tStatistics",
+    "user_embed_field_0_value_0": "Кількість разів, коли було використано команди бота: **{time_of_use_commands} times**",
+    "user_embed_field_0_value_1": "Кількість запитів (звернень): **{number_of_requests} times.**",
+    "user_embed_field_0_value_2": "Кількість згенерованих символів: **{generated_characters} символів**",
+
+    "user_embed_field_1_name": "{arrow}\tІнша інформація",
+    "user_embed_field_1_value_0": "Дата створення профілю: **{created_at}**",
+
+    "user_embed_author_name": "Вся інформація про користувача {user}",
+
+    "bot_embed_description": "Нижче ви можете побачити всю інформацію про бота `{bot_user}`",
+
+    "bot_embed_field_0_name": "Загальна інформація",
+    "bot_embed_field_0_value_0": "Кількість серверів: **{guilds_count}**",
+    "bot_embed_field_0_value_1": "Кількість мемберів: **{members_count}**",
+    "bot_embed_field_0_value_2": "Кількість команд: **{commands_count}**",
+
+    "bot_embed_field_1_name": "Статистика",
+    "bot_embed_field_1_value_0": "Кількість разів, коли було використано команди бота: **{time_of_use_commands} times**",
+    "bot_embed_field_1_value_1": "Кількість запитів (запитів): **{number_of_requests} times.**",
+    "bot_embed_field_1_value_2": "Кількість згенерованих символів: **{generated_characters} символів**",
+
+    "bot_embed_field_2_name": "Контактні дані та посилання",
+    "bot_embed_field_2_value_0": "Власник бота: [{application_info_owner}](https://discord.com/users/{application_info_owner_id})",
+    "bot_embed_field_2_value_1": "Сервер підтримки бота: [Натисніть, щоб перейти](https://discord.gg/WDTtfSqSnN)",
+
+    "help_embed_field_0_name": "{arrow}\tІнформація",
+    "help_embed_field_1_name": "{arrow}\tНейронні мережі",
+
+    "ping_content": "Затримка бота становить **{bot_latency}ms**",
+
+    "set_language_description": "Встановити мову бота",
+    "set_language_language_description": "Виберіть мову, яку ви хочете встановити для себе в інтерфейсі бота",
+    "set_language_embed_author_name": "Ви успішно встановили нову мову інтерфейсу бота (`{language}`)",
+
+    "history_paginator_check_error": "Ви не можете використовувати цей пагінатор, оскільки не є його власником"
+}
