@@ -72,17 +72,20 @@ class Commands(commands.Cog):
         start_time = time.time()
 
         try:
-            model = model or dict(await self.bot.get_user_datas(interaction.author.id))["model"]
+            model = model or dict(await self.bot.database.get_user_datas(interaction.author.id))["model"]
 
             base = f'*model*: `{model}`\n'
             system = 'system: your response will be rendered in a discord message, include language hints when ' \
                      'returning code like: ```py ...```, and use * or ** or > to create highlights ||\n prompt:'
 
             token = random.choice(open('data/tokens.txt', 'r').read().splitlines())
-            client = poe.Client(token)
+            client = poe.Client(
+                token=token.split(":")[0],
+                # proxy=self.file_proxier.get_random_proxy()
+            )
 
             await interaction.edit_original_response(base)
-            await self.bot.add_number_of_requests(interaction.author.id)
+            self.bot.loop.create_task(self.bot.database.add_number_of_requests(interaction.author.id))
 
             base += '\n'
 
@@ -98,7 +101,7 @@ class Commands(commands.Cog):
                 base += token['text_new']
                 base = base.replace('Discord Message:', '')
 
-                if index >= 4:
+                if index >= 5:
                     index = 0
                     await interaction.edit_original_response(content=base)
 
@@ -106,22 +109,21 @@ class Commands(commands.Cog):
             await interaction.edit_original_response(content=base, components=[Completed(start_time)])
 
             original_message = await interaction.original_message()
-            await self.bot.insert_request_to_history(
+            await self.bot.database.insert_request_to_history(
                 user_id=interaction.author.id,
                 prompt=prompt,
                 answer=base.strip().lstrip(f"*model:* `{model}`").strip("\n"),
                 model=model,
                 jump_url=original_message.jump_url
             )
-            await self.bot.add_generated_characters(interaction.author.id, len(base) - 18)
+            await self.bot.database.add_generated_characters(interaction.author.id, len(base) - 18)
 
         except Exception as e:
-            await interaction.response.send_message(
-                embed=Errbed(f"`{e.__class__.__name__}`: `{e}`", "⚠️ Contact the developer (/bot)"),
-                ephemeral=True
+            await interaction.edit_original_response(
+                embed=Errbed(f"`{e.__class__.__name__}`: `{e}`", "⚠️ Contact the developer (/bot)")
             )
 
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @gpt.sub_command(
         name="set-engine",
@@ -146,7 +148,7 @@ class Commands(commands.Cog):
         await interaction.response.defer()
 
         language = await self.bot.localization.get_language(interaction.author.id)
-        await self.bot.set_default_model(interaction.author.id, model)
+        await self.bot.database.set_default_model(interaction.author.id, model)
 
         await interaction.edit_original_response(embed=disnake.Embed(
             color=Config.config()["COLOR"]
@@ -154,7 +156,7 @@ class Commands(commands.Cog):
             name=self.bot.localization.get("ask_set_engine_embed_author_name", language).format(model=model),
             icon_url=interaction.author.display_avatar.url
         ))
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @gpt.sub_command(
         name="history",
@@ -179,7 +181,7 @@ class Commands(commands.Cog):
 
         user = user or interaction.user
         language = await self.bot.localization.get_language(interaction.author.id)
-        history = dict(await self.bot.get_user_datas(user.id))["history"]
+        history = dict(await self.bot.database.get_user_datas(user.id))["history"]
         parsing = lambda _: f"<t:{_['created_at']}:R>: **[" + (_['prompt'].replace('*', '').replace('\n', '') if len(
             _['prompt'].replace('*', '').replace('\n', '')) <= 32 else _['prompt'].replace('*', '').replace('\n', '')[
                                                                        :30] + "...") + f"]({_['jump_url']})**"
@@ -236,11 +238,11 @@ class Commands(commands.Cog):
             name=self.bot.localization.get("bot_embed_field_1_name", language),
             value="\n".join((
                 self.bot.localization.get("bot_embed_field_1_value_0", language).format(
-                    time_of_use_commands=f"{await self.bot.get_sum_of_key('time_of_use_commands'):,}"),
+                    time_of_use_commands=f"{await self.bot.database.get_sum_of_key('time_of_use_commands'):,}"),
                 self.bot.localization.get("bot_embed_field_1_value_1", language).format(
-                    number_of_requests=f"{await self.bot.get_sum_of_key('number_of_requests'):,}"),
+                    number_of_requests=f"{await self.bot.database.get_sum_of_key('number_of_requests'):,}"),
                 self.bot.localization.get("bot_embed_field_1_value_2", language).format(
-                    generated_characters=f"{await self.bot.get_sum_of_key('generated_characters'):,}")
+                    generated_characters=f"{await self.bot.database.get_sum_of_key('generated_characters'):,}")
             )),
             inline=False
         ).add_field(
@@ -261,7 +263,7 @@ class Commands(commands.Cog):
         await interaction.response.send_message(
             embed=embed
         )
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @commands.slash_command(
         name="user",
@@ -294,7 +296,7 @@ class Commands(commands.Cog):
                 ephemeral=True
             )
 
-        document = await self.bot.get_user_datas(user.id)
+        document = await self.bot.database.get_user_datas(user.id)
 
         created_at = f"<t:{document['created_at']}{':R>' if (time.time() - document['created_at']) <= 86400 else '>'}"
 
@@ -326,7 +328,7 @@ class Commands(commands.Cog):
         )
 
         await interaction.response.send_message(embed=embed)
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @commands.slash_command(
         name="help",
@@ -360,7 +362,7 @@ class Commands(commands.Cog):
         )
 
         await interaction.response.send_message(embed=embed)
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @commands.slash_command(
         name="ping",
@@ -377,7 +379,7 @@ class Commands(commands.Cog):
         await interaction.response.send_message(
             self.bot.localization.get("ping_content", language).format(bot_latency=round(self.bot.latency * 1000, 1))
         )
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
 
     @commands.slash_command(
         name="set-language",
@@ -400,7 +402,7 @@ class Commands(commands.Cog):
     ):
         await interaction.response.defer()
         await self.bot.localization.set_user_language(interaction.author.id, language)
-        await self.bot.add_times_of_use_commands(interaction.author.id)
+        await self.bot.database.add_times_of_use_commands(interaction.author.id)
         await interaction.edit_original_response(embed=disnake.Embed(
             color=Config.config()["COLOR"]
         ).set_author(

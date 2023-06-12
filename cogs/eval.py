@@ -34,7 +34,7 @@ class Eval(commands.Cog):
         except Exception as e:
             await ctx.reply(f"```py\n{e.__class__.__name__}: {e}```")
 
-        await self.bot.add_times_of_use_commands(ctx.author.id)
+        await self.bot.database.add_times_of_use_commands(ctx.author.id)
 
 
 def setup(bot):
