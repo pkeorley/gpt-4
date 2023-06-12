@@ -1,12 +1,16 @@
+import json
+import random
 from typing import Union
 
 import aiohttp
-import disnake
-from disnake.ext import commands
 
 
-async def get_proxies(limit: int = 10, page: int = 1, protocols: str = "socks5,socks4,http,https",
-                      country: Union[str, int, bool] = "US"):
+async def get_proxies(
+        limit: int = 10,
+        page: int = 1,
+        protocols: str = "socks5,socks4,http,https",
+        country: Union[str, int, bool] = "US"
+):
     url = f"https://proxylist.geonode.com/api/proxy-list?limit={limit}&page={page}&sort_by=lastChecked&sort_type=desc"
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -30,14 +34,50 @@ async def get_proxies(limit: int = 10, page: int = 1, protocols: str = "socks5,s
             for ip_port in ips_ports:
                 configs.append({
                     "protocols": ip_port["protocols"],
-                    "http": "http://{}:{}/".format(ip_port["ip"], ip_port["port"]),
-                    "https": "https://{}:{}/".format(ip_port["ip"], ip_port["port"])
+                    "ip": ip_port["ip"],
+                    "port": ip_port["port"]
                 })
 
             return configs
 
 
-def split_text(text, chunk_size):
+class Proxier:
+    def __init__(self):
+        self.proxies = None
+
+    async def load_proxies(self, protocols: str = "https,http,socks4,socks5", limit: int = 50):
+        self.proxies = await get_proxies(
+            limit=limit,
+            country=False,
+            protocols=protocols
+        )
+
+    def get_proxies(self):
+        return self.proxies
+
+    def get_random_proxy(self):
+        proxy = random.choice(self.proxies)
+        url = "{}://{}:{}".format(
+            proxy["protocols"][0],
+            proxy["ip"],
+            proxy["port"]
+        )
+        return url
+
+
+class FileProxier:
+    def __init__(self):
+        self.json = json.load(open("data/proxies.json", "r"))
+
+    def get_random_proxy(self):
+        proxy = random.choice(self.json)
+        return "{}://{}".format(
+            proxy["type"].lower(),
+            proxy["full"]
+        )
+
+
+"""def split_text(text, chunk_size):
     chunks = [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
     return chunks
 
@@ -124,3 +164,5 @@ class Proxies(commands.Cog):
 def setup(bot):
     ...
     #  bot.add_cog(Proxies(bot))
+
+"""
